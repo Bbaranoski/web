@@ -8,6 +8,7 @@ VStack,
 Group, 
 Heading,
 IconButton } from '@chakra-ui/react';
+import { Provider } from './components/ui/provider';
 import { HiOutlineHome } from "react-icons/hi";
 import { FiBell } from "react-icons/fi";
 import { BsGear } from "react-icons/bs";
@@ -18,8 +19,8 @@ import { GoPerson } from "react-icons/go";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Inicio from './inicio';
 import Cliente from './cliente';
+import Consulta from './consulta';
 import logo from "./image/logo.png";
-import { Provider } from './components/ui/provider';
 
 export interface style{
   cor: string,
@@ -63,7 +64,7 @@ const App: React.FC = () => {
         setTela(<Inicio {...style} />)
       break;
       case 1:
-        console.log('teste')
+        setTela(<Consulta {...style} />)
       break;
     }
   }
@@ -97,11 +98,11 @@ const App: React.FC = () => {
             width={'100%'}
             color={corTexto}
             bg={selectIndex == 0 ? select : cor}
-            borderColor={corTexto}
             borderRadius={redondo}
             borderWidth={'0px'}
             fontSize={recolhe ? fonte : '0px'}
-            transition={'font-size 1s'}
+            paddingLeft={recolhe ? '0px' : '0.5vw'}
+            transition={'font-size 1s, padding 1s'}
             onClick={() => {
               setSelectIndex(0)
               setTela(<Inicio {...style}/>)
@@ -112,14 +113,14 @@ const App: React.FC = () => {
             width={'100%'}
             color={corTexto}
             bg={selectIndex == 1 ? select : cor}
-            borderColor={corTexto}
             borderRadius={redondo}
             borderWidth={'0px'}
             fontSize={recolhe ? fonte : '0px'}
-            transition={'font-size 1s'}
+            paddingLeft={recolhe ? '0px' : '0.5vw'}
+            transition={'font-size 1s, padding 1s'}
             onClick={() => {
               setSelectIndex(1)
-              setTela(<Cliente />)
+              setTela(<Consulta {...style}/>)
             }}>
               <GoPerson /> Cliente
             </IconButton>
