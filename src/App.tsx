@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, 
 GridItem, 
 Button, 
@@ -22,6 +21,14 @@ import Cliente from './cliente';
 import logo from "./image/logo.png";
 import { Provider } from './components/ui/provider';
 
+export interface style{
+  cor: string,
+  corTexto: string,
+  redondo: string,
+  fonte: string,
+  titulo: string
+}
+
 const App: React.FC = () => {
 
   const [selectIndex, setSelectIndex] = useState<number>(0);
@@ -30,21 +37,36 @@ const App: React.FC = () => {
   //variaveis de estilo
   const [tema, setTema] = useState<boolean>(false)
   const cor: string = tema ? 'white' : 'black'
-  const textColor: string = tema ? 'black' : 'white'
+  const corTexto: string = tema ? 'black' : 'white'
   const redondo: string = '20px'
   const select: string = '#9FC5E8'
   const fonte: string = '15px'
   const titulo: string = '25px'
-  const style: object = {
-    cor,
-    textColor,
-    redondo,
-    fonte,
-    titulo
+  const style: style = {
+    cor: cor,
+    corTexto: corTexto,
+    redondo: redondo,
+    fonte: fonte,
+    titulo: titulo
   }
   
   //funcao para trocar de conteudo principal
-  const [tela, setTela] = useState<JSX.Element>(<Inicio />);
+  const [tela, setTela] = useState<JSX.Element>(<Inicio {...style}/>);
+
+  useEffect(() => {
+    renderizar(selectIndex)
+  }, [cor])
+
+  const renderizar = (index: number) => {
+    switch(index){
+      case 0:
+        setTela(<Inicio {...style} />)
+      break;
+      case 1:
+        console.log('teste')
+      break;
+    }
+  }
 
   return (
     <Provider>
@@ -66,32 +88,33 @@ const App: React.FC = () => {
           marginLeft={recolhe ? '10%' : '25%'}
           >
             <Image height={'5vh'} src={logo}/>
-            <Heading color={textColor}
+            <Heading color={corTexto}
             fontSize={titulo}
             >WINDEL</Heading>
           </Group>
           <VStack>
             <IconButton aria-label='cliente'
             width={'100%'}
-            color={textColor}
+            color={corTexto}
             bg={selectIndex == 0 ? select : cor}
-            borderColor={textColor}
+            borderColor={corTexto}
             borderRadius={redondo}
+            borderWidth={'0px'}
             fontSize={recolhe ? fonte : '0px'}
             transition={'font-size 1s'}
             onClick={() => {
               setSelectIndex(0)
-              setTela(<Inicio />)
-              console.log(style)
+              setTela(<Inicio {...style}/>)
             }}>
               <HiOutlineHome /> Inicio
             </IconButton>
             <IconButton aria-label='cliente'
             width={'100%'}
-            color={textColor}
+            color={corTexto}
             bg={selectIndex == 1 ? select : cor}
-            borderColor={textColor}
+            borderColor={corTexto}
             borderRadius={redondo}
+            borderWidth={'0px'}
             fontSize={recolhe ? fonte : '0px'}
             transition={'font-size 1s'}
             onClick={() => {
@@ -112,7 +135,7 @@ const App: React.FC = () => {
         >
           <Group>
             <IconButton aria-label='recolhe'
-            color={textColor}
+            color={corTexto}
             bg={cor}
             transition={'0s'}
             onClick={() => setRecolhe(!recolhe)}
@@ -120,7 +143,7 @@ const App: React.FC = () => {
               {recolhe ? <IoIosArrowBack/> :
               <IoIosArrowForward/>}
             </IconButton>
-            <Heading color={textColor}
+            <Heading color={corTexto}
             fontSize={titulo}
             >
               aaaaaaaaaa
@@ -129,37 +152,39 @@ const App: React.FC = () => {
       
           <Group>
             <IconButton aria-label='tema'
-            color={textColor}
+            color={corTexto}
             bg={cor}
             transition={'0s'}
-            onClick={() => setTema(!tema)}
+            onClick={() => {
+              setTema(!tema)
+            }}
             >
               {tema ? <IoMoonOutline /> : 
               <IoSunnyOutline />}
             </IconButton>
             <IconButton aria-label='favoritos'
-            color={textColor}
+            color={corTexto}
             bg={cor}
             transition={'0s'}
             >
               <FaRegStar />
             </IconButton>
             <IconButton aria-label='notificacao'
-            color={textColor}
+            color={corTexto}
             bg={cor}
             transition={'0s'}
             >
               <FiBell />
             </IconButton>
             <IconButton aria-label='configuracao'
-            color={textColor}
+            color={corTexto}
             bg={cor}
             transition={'0s'}
             >
               <BsGear />
             </IconButton>
             <IconButton aria-label='fullscreen'
-            color={textColor}
+            color={corTexto}
             bg={cor}
             transition={'0s'}
             >
