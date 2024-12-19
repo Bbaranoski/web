@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Consulta from "./consulta";
 import { useContext } from "react";
 import { StyleContext } from "./App";
+import { Box } from "@chakra-ui/react";
 
 interface pessoa {
     id: number,
@@ -17,7 +18,12 @@ const Cliente: React.FC = () => {
         setTela(<Consulta item={lista} cadastro={<Cadastro />} trocaTela={setTela} />)
     }, [])
     return(
-        <div>{tela}</div>
+        <Box height={'100%'}
+        width={'100%'}
+        padding={'0px 10px'}
+        >
+            {tela}
+        </Box>
     )
 }
 

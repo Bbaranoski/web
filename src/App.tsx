@@ -26,7 +26,8 @@ export interface style{
   corTexto: string,
   redondo: string,
   fonte: string,
-  titulo: string
+  titulo: string,
+  corBorda: string
 }
 
 export const StyleContext = createContext<object | undefined>(undefined)
@@ -40,7 +41,8 @@ const App: React.FC = () => {
   const [tema, setTema] = useState<boolean>(false)
   const cor: string = tema ? 'white' : 'black'
   const corTexto: string = tema ? 'black' : 'white'
-  const redondo: string = '20px'
+  const corBorda: string = '#e4e4e7'
+  const redondo: string = '10px'
   const select: string = '#9FC5E8'
   const fonte: string = '15px'
   const titulo: string = '25px'
@@ -49,7 +51,8 @@ const App: React.FC = () => {
     corTexto: corTexto,
     redondo: redondo,
     fonte: fonte,
-    titulo: titulo
+    titulo: titulo,
+    corBorda: corBorda
   }
   
   //funcao para trocar de conteudo principal
@@ -73,8 +76,8 @@ const App: React.FC = () => {
   return (
     <StyleContext.Provider value={{...style}}>
       <Provider>
-        <Grid templateColumns={recolhe ? '1fr 8fr': '0.5fr 7fr'}
-        templateRows={'1fr 8fr'}
+        <Grid templateColumns={recolhe ? '1fr 6fr': '0.5fr 7fr'}
+        templateRows={'0.8fr 8fr'}
         h={'100vh'}
         gap={'2px'}
         transition={'2s'}

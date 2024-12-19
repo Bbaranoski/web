@@ -12,8 +12,12 @@ interface ConsultaProps {
 const Consulta: React.FC<ConsultaProps> = ({item, cadastro, trocaTela}) => {
     const style = useContext(StyleContext)
     return(
-        <VStack>
-            <HStack>
+        <VStack height={'100%'} gap={'0px'}>
+            <HStack height={'10%'}
+            width={'100%'}
+            borderColor={style.corBorda}
+            borderWidth={'0px 1px'}
+            >
                 <Button bg={'#a3e635'}
                 _hover={{bg: '#84cc16'}}
                 color={style.corTexto}
@@ -27,7 +31,11 @@ const Consulta: React.FC<ConsultaProps> = ({item, cadastro, trocaTela}) => {
                 >
                 +</Button>
             </HStack>
-            <VStack>
+            <VStack height={'90%'}
+            width={'100%'}
+            borderColor={style.corBorda}
+            borderWidth={'0px 1px'}
+            >
                {item.map((e, index) => (
                 <HStack key={index}>
                     <Text color={style.corTexto}>{e.id}</Text>
