@@ -1,16 +1,13 @@
 import React from "react";
-import { useContext } from "react";
 import { HStack, VStack, Button, Text } from "@chakra-ui/react";
-import { style } from "./App";
+import { useContext } from "react";
 import { StyleContext } from "./App";
 
-interface client {
-    nome: string,
-    cnpj: string
+interface ArrayProps {
+    item : object[]
 }
 
-const Consulta: React.FC = () => {
-    const teste: client[] = [{nome: 'buh', cnpj: '04.430.502/0001-03'}]
+const Consulta: React.FC<ArrayProps> = ({item}) => {
     const style = useContext(StyleContext)
     return(
         <VStack>
@@ -26,8 +23,9 @@ const Consulta: React.FC = () => {
                 +</Button>
             </HStack>
             <VStack>
-               {teste.map((e, index) => (
+               {item.map((e, index) => (
                 <HStack key={index}>
+                    <Text color={style.corTexto}>{e.id}</Text>
                     <Text color={style.corTexto}>{e.nome}</Text>
                     <Text color={style.corTexto}>{e.cnpj}</Text>
                 </HStack>
