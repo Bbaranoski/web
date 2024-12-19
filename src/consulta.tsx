@@ -3,11 +3,13 @@ import { HStack, VStack, Button, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import { StyleContext } from "./App";
 
-interface ArrayProps {
-    item : object[]
+interface ConsultaProps {
+    item: object[],
+    cadastro: JSX.Element,
+    trocaTela: React.Dispatch<React.SetStateAction<any>>
 }
 
-const Consulta: React.FC<ArrayProps> = ({item}) => {
+const Consulta: React.FC<ConsultaProps> = ({item, cadastro, trocaTela}) => {
     const style = useContext(StyleContext)
     return(
         <VStack>
@@ -19,6 +21,9 @@ const Consulta: React.FC<ArrayProps> = ({item}) => {
                 borderRadius={style.redondo}
                 borderColor={style.corTexto}
                 fontSize={style.fonte}
+                onClick={() => {
+                    trocaTela(cadastro)
+                }}
                 >
                 +</Button>
             </HStack>
