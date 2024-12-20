@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Consulta from "./consulta";
 import { useContext } from "react";
 import { StyleContext } from "./App";
-import { Box, Tabs } from "@chakra-ui/react";
+import { Box, Color, Tabs } from "@chakra-ui/react";
 import { GoPerson } from "react-icons/go";
+import { IoIosAirplane } from "react-icons/io";
 
 interface pessoa {
     id: number,
@@ -32,13 +33,25 @@ const Cadastro: React.FC = () => {
     const style = useContext(StyleContext)
     return (
         <Tabs.Root defaultValue='infoPrincipal'>
-            <Tabs.List>
+            <Tabs.List >
                 <Tabs.Trigger value="infoPrincipal"
                 color={style.corTexto}
                 >
                     <GoPerson/> Dados Principais
                 </Tabs.Trigger>
+                <Tabs.Trigger value="infoAdicional"
+                color={style.corTexto}
+                >
+                    <IoIosAirplane/>
+                    teste
+                </Tabs.Trigger>
             </Tabs.List>
+            <Tabs.Content value="infoPrincipal">
+                <p>BUH</p>
+            </Tabs.Content>
+            <Tabs.Content value="infoAdicional">
+                <p>lol</p>
+            </Tabs.Content>
         </Tabs.Root>
     )
 }
