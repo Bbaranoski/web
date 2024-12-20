@@ -15,8 +15,6 @@ const Consulta: React.FC<ConsultaProps> = ({item, cadastro, trocaTela}) => {
         <VStack height={'100%'} gap={'0px'}>
             <HStack height={'10%'}
             width={'100%'}
-            borderColor={style.corBorda}
-            borderWidth={'0px 1px'}
             >
                 <Button bg={'#a3e635'}
                 _hover={{bg: '#84cc16'}}
@@ -31,13 +29,14 @@ const Consulta: React.FC<ConsultaProps> = ({item, cadastro, trocaTela}) => {
                 >
                 +</Button>
             </HStack>
-            <VStack height={'90%'}
+            <VStack height={'80%'}
             width={'100%'}
             borderColor={style.corBorda}
-            borderWidth={'0px 1px'}
+            borderWidth={'1px'}
+            borderRadius={style.redondo}
             >
                {item.map((e, index) => (
-                <HStack key={index}>
+                <HStack key={index}>6
                     <Text color={style.corTexto}>{e.id}</Text>
                     <Text color={style.corTexto}>{e.nome}</Text>
                     <Text color={style.corTexto}>{e.cnpj}</Text>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Consulta from "./consulta";
 import { useContext } from "react";
 import { StyleContext } from "./App";
-import { Box } from "@chakra-ui/react";
+import { Box, Tabs } from "@chakra-ui/react";
+import { GoPerson } from "react-icons/go";
 
 interface pessoa {
     id: number,
@@ -28,7 +29,18 @@ const Cliente: React.FC = () => {
 }
 
 const Cadastro: React.FC = () => {
-    return <div></div>
+    const style = useContext(StyleContext)
+    return (
+        <Tabs.Root defaultValue='infoPrincipal'>
+            <Tabs.List>
+                <Tabs.Trigger value="infoPrincipal"
+                color={style.corTexto}
+                >
+                    <GoPerson/> Dados Principais
+                </Tabs.Trigger>
+            </Tabs.List>
+        </Tabs.Root>
+    )
 }
 
 export default Cliente
