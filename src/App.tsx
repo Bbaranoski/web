@@ -3,11 +3,16 @@ import { Grid,
 GridItem, 
 Button, 
 Image, 
-Collapsible, 
 VStack, 
 Group, 
 Heading,
-IconButton } from '@chakra-ui/react';
+IconButton, 
+Accordion,
+AccordionRoot,
+AccordionItemTrigger,
+AccordionItem,
+AccordionItemContent,
+Collapsible} from '@chakra-ui/react';
 import { Provider } from './components/ui/provider';
 import { HiOutlineHome } from "react-icons/hi";
 import { FiBell } from "react-icons/fi";
@@ -28,6 +33,12 @@ export interface style{
   fonte: string,
   titulo: string,
   corBorda: string
+}
+
+interface botao{
+  titulo: string,
+  funcaoIndex: () => void,
+  funcaoTela: () => void
 }
 
 export const StyleContext = createContext<object | undefined>(undefined)
@@ -73,6 +84,13 @@ const App: React.FC = () => {
     }
   }
 
+  //array de obejtos dos botoes da sidebar
+  const cadastros: botao[] = [{
+    titulo: 'Cliente',
+    funcaoIndex: () => setSelectIndex(1),
+    funcaoTela: () => setTela(<Cliente />)
+  }]
+
   return (
     <StyleContext.Provider value={{...style}}>
       <Provider>
@@ -109,46 +127,37 @@ const App: React.FC = () => {
               paddingLeft={recolhe ? '0px' : '0.5vw'}
               transition={'font-size 1s, padding 1s'}
               onClick={() => {
-                setSelectIndex(0)
                 setTela(<Inicio />)
+                setSelectIndex(0)
               }}>
                 <HiOutlineHome /> Inicio
               </IconButton>
 
-              <Collapsible.Root width={'100%'}
-              >
-                <Collapsible.Trigger width={'100%'}
-                borderWidth={'0px 0px 1px 0px'}
-                >
-                <IconButton aria-label='cadastros'
-                color={corTexto}
-                bg={cor}
-                paddingLeft={recolhe ? '0px' : '0.5vw'}
-                fontSize={recolhe ? fonte : '0px'}
-                transition={'font-size 1s, padding 1s'}
-                >
-                <GoPersonAdd /> Cadastros
-                </IconButton>
+              <Collapsible.Root width={'100%'}>
+                <Collapsible.Trigger>
+                  <p>teste</p>
                 </Collapsible.Trigger>
-                <Collapsible.Content width={'80%'}
-                paddingLeft={'10%'}
-                >
-                  <IconButton aria-label='cliente'
-                    width={'100%'}
-                    color={corTexto}
-                    bg={selectIndex == 1 ? select : cor}
-                    borderRadius={redondo}
-                    borderWidth={'0px'}
-                    fontSize={recolhe ? fonte : '0px'}
-                    paddingLeft={recolhe ? '0px' : '0.5vw'}
-                    transition={'font-size 1s, padding 1s'}
-                    onClick={() => {
-                      setSelectIndex(1)
-                      setTela(<Cliente />)
-                    }}>
-                    <GoPerson /> Cliente
-                  </IconButton>
-                </Collapsible.Content>
+                {cadastros.map((item) => (
+                  <Collapsible.Content width={'80%'}
+                  paddingLeft={'10%'}
+                  key={item.titulo}
+                  >
+                    <IconButton width={'100%'}
+                        color={corTexto}
+                        bg={selectIndex == 1 ? select : cor}
+                        borderRadius={redondo}
+                        borderWidth={'0px'}
+                        fontSize={recolhe ? fonte : '0px'}
+                        paddingLeft={recolhe ? '0px' : '0.5vw'}
+                        transition={'font-size 1s, padding 1s'}
+                        onClick={() => {
+                          item.funcaoIndex()
+                          item.funcaoTela()
+                        }}>
+                        <GoPerson /> {item.titulo}
+                      </IconButton>
+                  </Collapsible.Content>
+                ))}
               </Collapsible.Root>
             </VStack>
           </GridItem>
