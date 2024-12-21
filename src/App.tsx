@@ -3,7 +3,7 @@ import { Grid,
 GridItem, 
 Button, 
 Image, 
-Flex, 
+Collapsible, 
 VStack, 
 Group, 
 Heading,
@@ -15,7 +15,7 @@ import { BsGear } from "react-icons/bs";
 import { FaRegStar } from "react-icons/fa";
 import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
 import { TbBorderCorners } from "react-icons/tb";
-import { GoPerson } from "react-icons/go";
+import { GoPerson, GoPersonAdd } from "react-icons/go";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Inicio from './inicio';
 import Cliente from './cliente';
@@ -35,7 +35,7 @@ export const StyleContext = createContext<object | undefined>(undefined)
 const App: React.FC = () => {
 
   const [selectIndex, setSelectIndex] = useState<number>(0);
-  const [recolhe, setRecolhe] = useState<boolean>(false);
+  const [recolhe, setRecolhe] = useState<boolean>(true);
 
   //variaveis de estilo
   const [tema, setTema] = useState<boolean>(false)
@@ -114,21 +114,42 @@ const App: React.FC = () => {
               }}>
                 <HiOutlineHome /> Inicio
               </IconButton>
-              <IconButton aria-label='cliente'
-              width={'100%'}
-              color={corTexto}
-              bg={selectIndex == 1 ? select : cor}
-              borderRadius={redondo}
-              borderWidth={'0px'}
-              fontSize={recolhe ? fonte : '0px'}
-              paddingLeft={recolhe ? '0px' : '0.5vw'}
-              transition={'font-size 1s, padding 1s'}
-              onClick={() => {
-                setSelectIndex(1)
-                setTela(<Cliente />)
-              }}>
-                <GoPerson /> Cliente
-              </IconButton>
+
+              <Collapsible.Root width={'100%'}
+              >
+                <Collapsible.Trigger width={'100%'}
+                borderWidth={'0px 0px 1px 0px'}
+                >
+                <IconButton aria-label='cadastros'
+                color={corTexto}
+                bg={cor}
+                paddingLeft={recolhe ? '0px' : '0.5vw'}
+                fontSize={recolhe ? fonte : '0px'}
+                transition={'font-size 1s, padding 1s'}
+                >
+                <GoPersonAdd /> Cadastros
+                </IconButton>
+                </Collapsible.Trigger>
+                <Collapsible.Content width={'80%'}
+                paddingLeft={'10%'}
+                >
+                  <IconButton aria-label='cliente'
+                    width={'100%'}
+                    color={corTexto}
+                    bg={selectIndex == 1 ? select : cor}
+                    borderRadius={redondo}
+                    borderWidth={'0px'}
+                    fontSize={recolhe ? fonte : '0px'}
+                    paddingLeft={recolhe ? '0px' : '0.5vw'}
+                    transition={'font-size 1s, padding 1s'}
+                    onClick={() => {
+                      setSelectIndex(1)
+                      setTela(<Cliente />)
+                    }}>
+                    <GoPerson /> Cliente
+                  </IconButton>
+                </Collapsible.Content>
+              </Collapsible.Root>
             </VStack>
           </GridItem>
 

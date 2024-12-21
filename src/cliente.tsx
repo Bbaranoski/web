@@ -32,8 +32,10 @@ const Cliente: React.FC = () => {
 const Cadastro: React.FC = () => {
     const style = useContext(StyleContext)
     return (
-        <Tabs.Root defaultValue='infoPrincipal'>
-            <Tabs.List >
+        <Tabs.Root defaultValue='infoPrincipal'
+        colorPalette={'cyan'}
+        >
+            <Tabs.List>
                 <Tabs.Trigger value="infoPrincipal"
                 color={style.corTexto}
                 >
