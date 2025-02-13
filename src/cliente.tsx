@@ -44,8 +44,10 @@ const Cadastro: React.FC = () => {
             titulo: string,
             corBorda: string }
     return (
-        <Tabs.Root defaultValue='infoPrincipal'>
-            <Tabs.List >
+        <Tabs.Root defaultValue='infoPrincipal'
+        colorPalette={'cyan'}
+        >
+            <Tabs.List>
                 <Tabs.Trigger value="infoPrincipal"
                 color={style.corTexto}
                 >
