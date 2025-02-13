@@ -10,7 +10,12 @@ interface ConsultaProps {
 }
 
 const Consulta: React.FC<ConsultaProps> = ({item, cadastro, trocaTela}) => {
-    const style = useContext(StyleContext)
+    const style = useContext(StyleContext) as { 
+            cor: string,
+            corTexto: string,
+            font: string,
+            titulo: string,
+            corBorda: string }
     return(
         <VStack height={'100%'} gap={'0px'}>
             <HStack height={'10%'}

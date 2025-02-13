@@ -13,7 +13,13 @@ interface pessoa {
 }
 
 const Cliente: React.FC = () => {
-    const style = useContext(StyleContext)
+    const style = useContext(StyleContext) as { 
+            cor: string,
+            corTexto: string,
+            redondo: string,
+            font: string,
+            titulo: string,
+            corBorda: string }
     const lista: pessoa[] = [{id: 1, nome: 'buh', cnpj: '04.430.502/0001-03'}]
     const [tela, setTela] = useState<JSX.Element>()
     useEffect(() => {
@@ -30,7 +36,13 @@ const Cliente: React.FC = () => {
 }
 
 const Cadastro: React.FC = () => {
-    const style = useContext(StyleContext)
+    const style = useContext(StyleContext) as { 
+            cor: string,
+            corTexto: string,
+            redondo: string,
+            font: string,
+            titulo: string,
+            corBorda: string }
     return (
         <Tabs.Root defaultValue='infoPrincipal'>
             <Tabs.List >
@@ -55,5 +67,4 @@ const Cadastro: React.FC = () => {
         </Tabs.Root>
     )
 }
-
 export default Cliente

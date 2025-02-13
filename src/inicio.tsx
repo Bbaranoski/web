@@ -4,7 +4,13 @@ import { useContext } from "react";
 import { StyleContext } from "./App";
 
 const Inicio: React.FC = () => {
-    const style = useContext(StyleContext)
+    const style = useContext(StyleContext) as { 
+        cor: string,
+        corTexto: string,
+        redondo: string,
+        fonte: string,
+        titulo: string,
+        corBorda: string }
     return(
         <HStack>
             <Button bg={style.cor}
