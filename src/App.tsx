@@ -3,16 +3,11 @@ import { Grid,
 GridItem, 
 Button, 
 Image, 
+Flex, 
 VStack, 
 Group, 
 Heading,
-IconButton, 
-Accordion,
-AccordionRoot,
-AccordionItemTrigger,
-AccordionItem,
-AccordionItemContent,
-Collapsible} from '@chakra-ui/react';
+IconButton } from '@chakra-ui/react';
 import { Provider } from './components/ui/provider';
 import { HiOutlineHome } from "react-icons/hi";
 import { FiBell } from "react-icons/fi";
@@ -20,12 +15,13 @@ import { BsGear } from "react-icons/bs";
 import { FaRegStar } from "react-icons/fa";
 import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
 import { TbBorderCorners } from "react-icons/tb";
-import { GoPerson, GoPersonAdd } from "react-icons/go";
+import { GoPerson } from "react-icons/go";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Inicio from './inicio';
 import Cliente from './cliente';
 import logo from "./image/logo.png";
 
+//interface de estilo
 export interface style{
   cor: string,
   corTexto: string,
@@ -34,19 +30,13 @@ export interface style{
   titulo: string,
   corBorda: string
 }
-
-interface botao{
-  titulo: string,
-  funcaoIndex: () => void,
-  funcaoTela: () => void
-}
-
+//Context de estilo que é exportada
 export const StyleContext = createContext<object | undefined>(undefined)
 
 const App: React.FC = () => {
-
+  //variaveis de estado da barra lateral
   const [selectIndex, setSelectIndex] = useState<number>(0);
-  const [recolhe, setRecolhe] = useState<boolean>(true);
+  const [recolhe, setRecolhe] = useState<boolean>(false);
 
   //variaveis de estilo
   const [tema, setTema] = useState<boolean>(false)
@@ -69,10 +59,12 @@ const App: React.FC = () => {
   //funcao para trocar de conteudo principal
   const [tela, setTela] = useState<JSX.Element>(<Inicio/>);
 
+  //função para re-renderizar o conteudo quando troca o tema 
   useEffect(() => {
     renderizar(selectIndex)
   }, [cor])
 
+  //função para trocar de conteudo principal
   const renderizar = (index: number) => {
     switch(index){
       case 0:
@@ -84,14 +76,8 @@ const App: React.FC = () => {
     }
   }
 
-  //array de obejtos dos botoes da sidebar
-  const cadastros: botao[] = [{
-    titulo: 'Cliente',
-    funcaoIndex: () => setSelectIndex(1),
-    funcaoTela: () => setTela(<Cliente />)
-  }]
-
   return (
+    //provendo o estilo para o contexto
     <StyleContext.Provider value={{...style}}>
       <Provider>
         <Grid templateColumns={recolhe ? '1fr 6fr': '0.5fr 7fr'}
@@ -127,38 +113,26 @@ const App: React.FC = () => {
               paddingLeft={recolhe ? '0px' : '0.5vw'}
               transition={'font-size 1s, padding 1s'}
               onClick={() => {
-                setTela(<Inicio />)
                 setSelectIndex(0)
+                setTela(<Inicio />)
               }}>
                 <HiOutlineHome /> Inicio
               </IconButton>
-
-              <Collapsible.Root width={'100%'}>
-                <Collapsible.Trigger>
-                  <p>teste</p>
-                </Collapsible.Trigger>
-                {cadastros.map((item) => (
-                  <Collapsible.Content width={'80%'}
-                  paddingLeft={'10%'}
-                  key={item.titulo}
-                  >
-                    <IconButton width={'100%'}
-                        color={corTexto}
-                        bg={selectIndex == 1 ? select : cor}
-                        borderRadius={redondo}
-                        borderWidth={'0px'}
-                        fontSize={recolhe ? fonte : '0px'}
-                        paddingLeft={recolhe ? '0px' : '0.5vw'}
-                        transition={'font-size 1s, padding 1s'}
-                        onClick={() => {
-                          item.funcaoIndex()
-                          item.funcaoTela()
-                        }}>
-                        <GoPerson /> {item.titulo}
-                      </IconButton>
-                  </Collapsible.Content>
-                ))}
-              </Collapsible.Root>
+              <IconButton aria-label='cliente'
+              width={'100%'}
+              color={corTexto}
+              bg={selectIndex == 1 ? select : cor}
+              borderRadius={redondo}
+              borderWidth={'0px'}
+              fontSize={recolhe ? fonte : '0px'}
+              paddingLeft={recolhe ? '0px' : '0.5vw'}
+              transition={'font-size 1s, padding 1s'}
+              onClick={() => {
+                setSelectIndex(1)
+                setTela(<Cliente />)
+              }}>
+                <GoPerson /> Cliente
+              </IconButton>
             </VStack>
           </GridItem>
 

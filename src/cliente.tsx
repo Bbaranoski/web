@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import Consulta from "./consulta";
 import { useContext } from "react";
 import { StyleContext } from "./App";
-import { Box, Color, Tabs } from "@chakra-ui/react";
+import { Box, Color, Tabs, VStack, HStack, Fieldset, Field, Input } from "@chakra-ui/react";
 import { GoPerson } from "react-icons/go";
 import { IoIosAirplane } from "react-icons/io";
-
+//interface de pessoa
 interface pessoa {
     id: number,
     nome: string,
@@ -20,7 +20,9 @@ const Cliente: React.FC = () => {
             font: string,
             titulo: string,
             corBorda: string }
+    //lista de pessoas
     const lista: pessoa[] = [{id: 1, nome: 'buh', cnpj: '04.430.502/0001-03'}]
+    //função de troca de tela
     const [tela, setTela] = useState<JSX.Element>()
     useEffect(() => {
         setTela(<Consulta item={lista} cadastro={<Cadastro />} trocaTela={setTela} />)
@@ -44,10 +46,8 @@ const Cadastro: React.FC = () => {
             titulo: string,
             corBorda: string }
     return (
-        <Tabs.Root defaultValue='infoPrincipal'
-        colorPalette={'cyan'}
-        >
-            <Tabs.List>
+        <Tabs.Root defaultValue='infoPrincipal'>
+            <Tabs.List >
                 <Tabs.Trigger value="infoPrincipal"
                 color={style.corTexto}
                 >
@@ -61,7 +61,22 @@ const Cadastro: React.FC = () => {
                 </Tabs.Trigger>
             </Tabs.List>
             <Tabs.Content value="infoPrincipal">
-                <p>BUH</p>
+                <VStack width={'100%'}
+                borderColor={style.corBorda}
+                borderWidth={'1px'}
+                borderRadius={style.redondo}
+                >
+                    <Fieldset.Root>
+                        <HStack width={'100%'}
+                        >
+                            <Field.Root>
+                                <Field.Label>Nome</Field.Label>
+                                <Input placeholder="Nome" />
+                            </Field.Root>
+                            
+                        </HStack>
+                    </Fieldset.Root>
+                </VStack>
             </Tabs.Content>
             <Tabs.Content value="infoAdicional">
                 <p>lol</p>
