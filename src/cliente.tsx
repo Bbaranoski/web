@@ -125,6 +125,7 @@ const Cadastro: React.FC<teste> = ({trocaTela}) => {
                                     onChange={(e) => {
                                         setNome(e.target.value)
                                     }}
+                                    required
                                     />
                                     <Field.Label css={floatingStyles}>Nome</Field.Label>
                                 </Box>
@@ -138,16 +139,21 @@ const Cadastro: React.FC<teste> = ({trocaTela}) => {
                                     onChange={(e) => {
                                         setCnpj(e.target.value)
                                     }}
+                                    required
                                     />
                                     <Field.Label css={floatingStyles}>CPF/CNPJ</Field.Label>
                                 </Box>
                             </Field.Root>
-                            <Button
+                            <Button type="submit"
+                            bg={'#a3e635'}
+                            color={style.corTexto}
                             onClick={() => {
-                                trocaTela(<Consulta item={lista} cadastro={<Cadastro trocaTela={trocaTela}/>} trocaTela={trocaTela} />)
-                                lista.push({id: lista.length + 1, nome: nome, cnpj: cnpj})
+                                if(nome != '' && cnpj != ''){
+                                    trocaTela(<Consulta item={lista} cadastro={<Cadastro trocaTela={trocaTela}/>} trocaTela={trocaTela} />)
+                                    lista.push({id: lista.length + 1, nome: nome, cnpj: cnpj})
+                                }         
                             }}
-                            >asddasad</Button>
+                            >Salvar</Button>
                         </HStack>
                     </Fieldset.Root>
                 </VStack>
