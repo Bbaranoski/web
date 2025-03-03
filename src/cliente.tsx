@@ -10,7 +10,8 @@ import { Box,
         Fieldset,
         Field,
         Input,
-        defineStyle } from "@chakra-ui/react";
+        Button,
+        defineStyle} from "@chakra-ui/react";
 import { GoPerson } from "react-icons/go";
 import { IoIosAirplane } from "react-icons/io";
 //interface de pessoa
@@ -20,6 +21,14 @@ interface pessoa {
     cnpj: string
 }
 
+// interface de cadastro
+interface teste {
+   trocaTela: React.Dispatch<React.SetStateAction<any>>
+}
+
+//lista de pessoas
+const lista: pessoa[] = [{id: 1, nome: 'buh', cnpj: '04.430.502/0001-03'}]
+
 const Cliente: React.FC = () => {
     const style = useContext(StyleContext) as { 
             cor: string,
@@ -28,12 +37,10 @@ const Cliente: React.FC = () => {
             font: string,
             titulo: string,
             corBorda: string }
-    //lista de pessoas
-    const lista: pessoa[] = [{id: 1, nome: 'buh', cnpj: '04.430.502/0001-03'}]
     //função de troca de tela
     const [tela, setTela] = useState<JSX.Element>()
     useEffect(() => {
-        setTela(<Consulta item={lista} cadastro={<Cadastro />} trocaTela={setTela} />)
+        setTela(<Consulta item={lista} cadastro={<Cadastro trocaTela={setTela}/>} trocaTela={setTela} />)
     }, [])
     return(
         <Box height={'100%'}
@@ -45,7 +52,7 @@ const Cliente: React.FC = () => {
     )
 }
 
-const Cadastro: React.FC = () => {
+const Cadastro: React.FC<teste> = ({trocaTela}) => {
     const style = useContext(StyleContext) as { 
             cor: string,
             corTexto: string,
@@ -54,7 +61,8 @@ const Cadastro: React.FC = () => {
             titulo: string,
             corBorda: string }
 
-            console.log(style)
+    const [nome, setNome] = useState('')
+    const [cnpj, setCnpj] = useState('')
 
     const floatingStyles = defineStyle({
     color: style.corTexto,
@@ -106,16 +114,40 @@ const Cadastro: React.FC = () => {
                         <HStack width={'100%'}
                         padding={'1%'}
                         >
-                            <Field.Root>
+                            <Field.Root orientation={'horizontal'}>
                                 <Box pos="relative" w="full">
-                                    <Input className="peer" color= {style.corTexto} placeholder="" focusRingColor={style.corTexto}/>
+                                    <Input className="peer"
+                                    id="nome"
+                                    color= {style.corTexto}
+                                    placeholder="" 
+                                    focusRingColor={style.corTexto}
+                                    value={nome}
+                                    onChange={(e) => {
+                                        setNome(e.target.value)
+                                    }}
+                                    />
                                     <Field.Label css={floatingStyles}>Nome</Field.Label>
                                 </Box>
+                                <Box pos="relative" w="full">
+                                    <Input className="peer"
+                                    id="cnpj"
+                                    color= {style.corTexto}
+                                    placeholder="" 
+                                    focusRingColor={style.corTexto}
+                                    value={cnpj}
+                                    onChange={(e) => {
+                                        setCnpj(e.target.value)
+                                    }}
+                                    />
+                                    <Field.Label css={floatingStyles}>CPF/CNPJ</Field.Label>
+                                </Box>
                             </Field.Root>
-                            <Field.Root>
-                                <Field.Label>Nome</Field.Label>
-                                <Input placeholder="Nome" />
-                            </Field.Root>
+                            <Button
+                            onClick={() => {
+                                trocaTela(<Consulta item={lista} cadastro={<Cadastro trocaTela={trocaTela}/>} trocaTela={trocaTela} />)
+                                lista.push({id: lista.length + 1, nome: nome, cnpj: cnpj})
+                            }}
+                            >asddasad</Button>
                         </HStack>
                     </Fieldset.Root>
                 </VStack>

@@ -13,7 +13,8 @@ const Consulta: React.FC<ConsultaProps> = ({item, cadastro, trocaTela}) => {
     const style = useContext(StyleContext) as { 
             cor: string,
             corTexto: string,
-            font: string,
+            redondo: string,
+            fonte: string,
             titulo: string,
             corBorda: string }
     return(
@@ -41,7 +42,7 @@ const Consulta: React.FC<ConsultaProps> = ({item, cadastro, trocaTela}) => {
             borderRadius={style.redondo}
             >
                {item.map((e, index) => (
-                <HStack key={index}>6
+                <HStack key={index}>
                     <Text color={style.corTexto}>{e.id}</Text>
                     <Text color={style.corTexto}>{e.nome}</Text>
                     <Text color={style.corTexto}>{e.cnpj}</Text>
