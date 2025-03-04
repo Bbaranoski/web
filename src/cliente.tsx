@@ -61,8 +61,7 @@ const Cadastro: React.FC<teste> = ({trocaTela}) => {
             titulo: string,
             corBorda: string }
 
-    const [nome, setNome] = useState('')
-    const [cnpj, setCnpj] = useState('')
+    const [cliente, setCliente] = useState<pessoa>({id: 0, nome: '', cnpj: ''})
 
     const floatingStyles = defineStyle({
     color: style.corTexto,
@@ -121,9 +120,9 @@ const Cadastro: React.FC<teste> = ({trocaTela}) => {
                                     color= {style.corTexto}
                                     placeholder="" 
                                     focusRingColor={style.corTexto}
-                                    value={nome}
+                                    value={cliente.nome}
                                     onChange={(e) => {
-                                        setNome(e.target.value)
+                                        setCliente({...cliente, nome: e.target.value})
                                     }}
                                     required
                                     />
@@ -135,22 +134,35 @@ const Cadastro: React.FC<teste> = ({trocaTela}) => {
                                     color= {style.corTexto}
                                     placeholder="" 
                                     focusRingColor={style.corTexto}
-                                    value={cnpj}
+                                    value={cliente.cnpj}
                                     onChange={(e) => {
-                                        setCnpj(e.target.value)
+                                        setCliente({...cliente, cnpj: e.target.value})
                                     }}
                                     required
                                     />
                                     <Field.Label css={floatingStyles}>CPF/CNPJ</Field.Label>
                                 </Box>
                             </Field.Root>
-                            <Button type="submit"
-                            bg={'#a3e635'}
+                            <Button transition={'0s'}
+                            bg={style.cor}
+                            
                             color={style.corTexto}
+                            borderColor={style.corTexto}
                             onClick={() => {
-                                if(nome != '' && cnpj != ''){
+                                
+                                trocaTela(<Consulta item={lista} cadastro={<Cadastro trocaTela={trocaTela}/>} trocaTela={trocaTela} />)     
+                            }}
+                            >Voltar</Button>
+                            <Button type="submit"
+                            transition={'0s'}
+                            bg={style.cor}
+                            _hover={{bg: '#a3e635'}}
+                            color={style.corTexto}
+                            borderColor={style.corTexto}
+                            onClick={() => {
+                                if(cliente.nome != '' && cliente.cnpj != ''){
                                     trocaTela(<Consulta item={lista} cadastro={<Cadastro trocaTela={trocaTela}/>} trocaTela={trocaTela} />)
-                                    lista.push({id: lista.length + 1, nome: nome, cnpj: cnpj})
+                                    lista.push({id: lista.length + 1, nome: cliente.nome, cnpj: cliente.cnpj})
                                 }         
                             }}
                             >Salvar</Button>
