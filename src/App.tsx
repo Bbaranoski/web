@@ -55,6 +55,25 @@ const App: React.FC = () => {
     titulo: titulo,
     corBorda: corBorda
   }
+
+  //função verifica tamanho da tela
+  const [mobile, setMobile] = useState<boolean>(false)
+  const verificaTamanho = () => {
+    if(window.innerWidth < 768) {
+      setMobile(true)
+      setRecolhe(false)
+    }else{
+      setMobile(false)
+
+    }
+  }
+  useEffect(() => {
+    verificaTamanho()
+    window.addEventListener('resize', verificaTamanho)
+    return () => {
+      window.removeEventListener('resize', verificaTamanho)
+    }
+  }, [])
   
   //funcao para trocar de conteudo principal
   const [tela, setTela] = useState<JSX.Element>(<Inicio/>);
@@ -92,8 +111,9 @@ const App: React.FC = () => {
           bg={cor}
           padding={'1vh'}
           overflow={'hidden'}
+          minWidth={'50px'}
           >
-            <Group gap={recolhe ? '0px' : '100px'}
+            <Group gap={recolhe ? '10px' : '100px'}
             transition={'2s'}
             marginLeft={recolhe ? '10%' : '25%'}
             >
