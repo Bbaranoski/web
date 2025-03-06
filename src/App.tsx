@@ -61,7 +61,7 @@ const App: React.FC = () => {
   const verificaTamanho = () => {
     if(window.innerWidth < 768) {
       setMobile(true)
-      setRecolhe(false)
+      setRecolhe(false)      
     }else{
       setMobile(false)
 
@@ -168,7 +168,9 @@ const App: React.FC = () => {
               color={corTexto}
               bg={cor}
               transition={'0s'}
-              onClick={() => setRecolhe(!recolhe)}
+              onClick={() => {if(mobile == false){
+                setRecolhe(!recolhe)
+              }}}
               >
                 {recolhe ? <IoIosArrowBack/> :
                 <IoIosArrowForward/>}
